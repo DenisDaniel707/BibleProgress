@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css'
+import Cookies from 'js-cookie'
 
 const App = () => {
 
@@ -82,6 +83,22 @@ const App = () => {
   const [bookmark, setBookmark] = useState(bookmarkDefault)
   const [progress, setProgress] = useState(0)
   const [flag, setFlag] = useState(false)
+
+  const setCookies = () => {
+    Cookies.set('br_app_oldTestament', JSON.stringify(oldTestament));
+    Cookies.set('br_app_newTestament', JSON.stringify(newTestament));
+    Cookies.set('br_app_bookmark', JSON.stringify(bookmark));
+  }
+
+  const getCookies = () => {
+    const oldTestamentCookie = Cookies.get('br_app_oldTestament');
+    const newTestamentCookie = Cookies.get('br_app_newTestament');
+    const bookmarkCookie = Cookies.get('br_app_bookmark');
+    // console.log(oldTestamentCookie, newTestamentCookie, bookmarkCookie);
+    setOldTestament(JSON.parse(oldTestamentCookie))
+    setNewTestament(JSON.parse(newTestamentCookie))
+    setBookmark(JSON.parse(bookmarkCookie))
+  }
   
   const handleClick1 = (book, i) => {
     const aux = oldTestament
@@ -188,6 +205,11 @@ const handleRightClick = (event, book, chapter) => {
     );
   });
 
+  // Retrieve cookies on mount
+  useEffect(() => {
+    getCookies()
+  }, [])
+
   useEffect(() => {
     const calculateProgress = () => {
       let count = 0
@@ -219,13 +241,14 @@ const handleRightClick = (event, book, chapter) => {
         </div>
       </div>
       <div>
-        <h1 style={{display: 'flex', justifyContent: 'center'}}>New Testament</h1>
+        <h1 style={{display: 'flex', justifyContent: 'center', marginTop: '75px'}}>New Testament</h1>
         <div className="books">
           {newTestamentBooks}
         </div>
       </div>
       <div style={{width: '95%', display: 'flex', justifyContent: 'center', margin: '20px', marginTop: '50px'}}>
-        <button style={{color: 'red'}} onDoubleClick={clearBible}>Double click to clear Bible</button>
+        <button style={{color: 'green', margin: '0 35px'}} onClick={setCookies}>Save progress</button>
+        <button style={{color: 'red'}} onDoubleClick={clearBible}>Double click to clear the Bible progress</button>
       </div>
     </div>
   );
