@@ -248,7 +248,7 @@ const handleRightClick = (event, book, chapter) => {
       </div>
       <div style={{width: '95%', display: 'flex', justifyContent: 'center', margin: '20px', marginTop: '50px'}}>
         <button style={{color: 'green', margin: '0 35px'}} onClick={setCookies}>Save progress</button>
-        <button style={{color: 'red'}} onDoubleClick={clearBible}>Double click to clear the Bible progress</button>
+        <button style={{color: 'red'}} onDoubleClick={clearBible}>Delete progress</button>
       </div>
     </div>
   );
