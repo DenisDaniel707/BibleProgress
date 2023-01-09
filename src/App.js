@@ -2,79 +2,79 @@ import { useState, useEffect } from 'react';
 import './App.css'
 import Cookies from 'js-cookie'
 
-const App = () => {
+const oldTestamentDefault = [
+  {name: 'Genesis', chapters: 50, completed: []},
+  {name: 'Exodus', chapters: 40, completed: []},
+  {name: 'Leviticus', chapters: 27, completed: []},
+  {name: 'Numbers', chapters: 36, completed: []},
+  {name: 'Deuteronomy', chapters: 34, completed: []},
+  {name: 'Joshua', chapters: 24, completed: []},
+  {name: 'Judges', chapters: 21, completed: []},
+  {name: 'Ruth', chapters: 4, completed: []},
+  {name: '1 Samuel', chapters: 31, completed: []},
+  {name: '2 Samuel', chapters: 24, completed: []},
+  {name: '1 Kings', chapters: 22, completed: []},
+  {name: '2 Kings', chapters: 25, completed: []},
+  {name: '1 Chronicles', chapters: 29, completed: []},
+  {name: '2 Chronicles', chapters: 36, completed: []},
+  {name: 'Ezra', chapters: 10, completed: []},
+  {name: 'Nehemiah', chapters: 13, completed: []},
+  {name: 'Esther', chapters: 10, completed: []},
+  {name: 'Job', chapters: 42, completed: []},
+  {name: 'Psalms', chapters: 150, completed: []},
+  {name: 'Proverbs', chapters: 31, completed: []},
+  {name: 'Ecclesiastes', chapters: 12, completed: []},
+  {name: 'Song of Solomon', chapters: 8, completed: []},
+  {name: 'Isaiah', chapters: 66, completed: []},
+  {name: 'Jeremiah', chapters: 52, completed: []},
+  {name: 'Lamentations', chapters: 5, completed: []},
+  {name: 'Ezekiel', chapters: 48, completed: []},
+  {name: 'Daniel', chapters: 12, completed: []},
+  {name: 'Hosea', chapters: 14, completed: []},
+  {name: 'Joel', chapters: 3, completed: []},
+  {name: 'Amos', chapters: 9, completed: []},
+  {name: 'Obadiah', chapters: 1, completed: []},
+  {name: 'Jonah', chapters: 4, completed: []},
+  {name: 'Micah', chapters: 7, completed: []},
+  {name: 'Nahum', chapters: 3, completed: []},
+  {name: 'Habakkuk', chapters: 3, completed: []},
+  {name: 'Zephaniah', chapters: 3, completed: []},
+  {name: 'Haggai', chapters: 2, completed: []},
+  {name: 'Zechariah', chapters: 14, completed: []},
+  {name: 'Malachi', chapters: 4, completed: []}
+];
 
-  const oldTestamentDefault = [
-    {name: 'Genesis', chapters: 50, completed: []},
-    {name: 'Exodus', chapters: 40, completed: []},
-    {name: 'Leviticus', chapters: 27, completed: []},
-    {name: 'Numbers', chapters: 36, completed: []},
-    {name: 'Deuteronomy', chapters: 34, completed: []},
-    {name: 'Joshua', chapters: 24, completed: []},
-    {name: 'Judges', chapters: 21, completed: []},
-    {name: 'Ruth', chapters: 4, completed: []},
-    {name: '1 Samuel', chapters: 31, completed: []},
-    {name: '2 Samuel', chapters: 24, completed: []},
-    {name: '1 Kings', chapters: 22, completed: []},
-    {name: '2 Kings', chapters: 25, completed: []},
-    {name: '1 Chronicles', chapters: 29, completed: []},
-    {name: '2 Chronicles', chapters: 36, completed: []},
-    {name: 'Ezra', chapters: 10, completed: []},
-    {name: 'Nehemiah', chapters: 13, completed: []},
-    {name: 'Esther', chapters: 10, completed: []},
-    {name: 'Job', chapters: 42, completed: []},
-    {name: 'Psalms', chapters: 150, completed: []},
-    {name: 'Proverbs', chapters: 31, completed: []},
-    {name: 'Ecclesiastes', chapters: 12, completed: []},
-    {name: 'Song of Solomon', chapters: 8, completed: []},
-    {name: 'Isaiah', chapters: 66, completed: []},
-    {name: 'Jeremiah', chapters: 52, completed: []},
-    {name: 'Lamentations', chapters: 5, completed: []},
-    {name: 'Ezekiel', chapters: 48, completed: []},
-    {name: 'Daniel', chapters: 12, completed: []},
-    {name: 'Hosea', chapters: 14, completed: []},
-    {name: 'Joel', chapters: 3, completed: []},
-    {name: 'Amos', chapters: 9, completed: []},
-    {name: 'Obadiah', chapters: 1, completed: []},
-    {name: 'Jonah', chapters: 4, completed: []},
-    {name: 'Micah', chapters: 7, completed: []},
-    {name: 'Nahum', chapters: 3, completed: []},
-    {name: 'Habakkuk', chapters: 3, completed: []},
-    {name: 'Zephaniah', chapters: 3, completed: []},
-    {name: 'Haggai', chapters: 2, completed: []},
-    {name: 'Zechariah', chapters: 14, completed: []},
-    {name: 'Malachi', chapters: 4, completed: []}
-  ];
-  
-  const newTestamentDefault = [
-    {name: 'Matthew', chapters: 28, completed: []},
-    {name: 'Mark', chapters: 16, completed: []},
-    {name: 'Luke', chapters: 24, completed: []},
-    {name: 'John', chapters: 21, completed: []},
-    {name: 'Acts', chapters: 28, completed: []},
-    {name: 'Romans', chapters: 16, completed: []},
-    {name: '1 Corinthians', chapters: 16, completed: []},
-    {name: '2 Corinthians', chapters: 13, completed: []},
-    {name: 'Galatians', chapters: 6, completed: []},
-    {name: 'Ephesians', chapters: 6, completed: []},
-    {name: 'Philippians', chapters: 4, completed: []},
-    {name: 'Colossians', chapters: 4, completed: []},
-    {name: '1 Thessalonians', chapters: 5, completed: []},
-    {name: '2 Thessalonians', chapters: 3, completed: []},
-    {name: '1 Timothy', chapters: 6, completed: []},
-    {name: '2 Timothy', chapters: 4, completed: []},
-    {name: 'Titus', chapters: 3, completed: []},
-    {name: 'Philemon', chapters: 1, completed: []},
-    {name: 'Hebrews', chapters: 13, completed: []},
-    {name: 'James', chapters: 5, completed: []},
-    {name: '1 Peter', chapters: 5, completed: []},
-    {name: '2 Peter', chapters: 3, completed: []},
-    {name: '1 John', chapters: 5, completed: []},
-    {name: '2 John', chapters: 1, completed: []},
-    {name: '3 John', chapters: 1, completed: []},
-    {name: 'Jude', chapters: 1, completed: []},
-    {name: 'Revelation', chapters: 22, completed: []}
-  ];
+const newTestamentDefault = [
+  {name: 'Matthew', chapters: 28, completed: []},
+  {name: 'Mark', chapters: 16, completed: []},
+  {name: 'Luke', chapters: 24, completed: []},
+  {name: 'John', chapters: 21, completed: []},
+  {name: 'Acts', chapters: 28, completed: []},
+  {name: 'Romans', chapters: 16, completed: []},
+  {name: '1 Corinthians', chapters: 16, completed: []},
+  {name: '2 Corinthians', chapters: 13, completed: []},
+  {name: 'Galatians', chapters: 6, completed: []},
+  {name: 'Ephesians', chapters: 6, completed: []},
+  {name: 'Philippians', chapters: 4, completed: []},
+  {name: 'Colossians', chapters: 4, completed: []},
+  {name: '1 Thessalonians', chapters: 5, completed: []},
+  {name: '2 Thessalonians', chapters: 3, completed: []},
+  {name: '1 Timothy', chapters: 6, completed: []},
+  {name: '2 Timothy', chapters: 4, completed: []},
+  {name: 'Titus', chapters: 3, completed: []},
+  {name: 'Philemon', chapters: 1, completed: []},
+  {name: 'Hebrews', chapters: 13, completed: []},
+  {name: 'James', chapters: 5, completed: []},
+  {name: '1 Peter', chapters: 5, completed: []},
+  {name: '2 Peter', chapters: 3, completed: []},
+  {name: '1 John', chapters: 5, completed: []},
+  {name: '2 John', chapters: 1, completed: []},
+  {name: '3 John', chapters: 1, completed: []},
+  {name: 'Jude', chapters: 1, completed: []},
+  {name: 'Revelation', chapters: 22, completed: []}
+];
+
+const App = () => {
 
   const bookmarkDefault = {book: '', chapter: 0}
 
@@ -112,6 +112,7 @@ const App = () => {
           b.completed.push(i)
         }
       }
+      return 0
     }))
     
     setOldTestament(aux)
@@ -136,6 +137,7 @@ const App = () => {
           b.completed.push(i)
         }
       }
+      return 0
     }))
     
     setNewTestament(aux)
@@ -216,10 +218,12 @@ const handleRightClick = (event, book, chapter) => {
 
       oldTestament.map((book => {
         count += book.completed.length
+        return 0
       }))
 
       newTestament.map((book => {
         count += book.completed.length
+        return 0
       }))
 
       setProgress((count * 100 / 1189).toFixed(2))
