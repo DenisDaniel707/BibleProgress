@@ -84,6 +84,8 @@ const App = () => {
   const [bookmark, setBookmark] = useState(bookmarkDefault)
   const [progress, setProgress] = useState(0)
   const [flag, setFlag] = useState(false)
+  
+  const [doubleClickTimer, setDoubleClickTimer] = useState(null);
   const myDiv = useRef(null);
 
   const setCookies = () => {
@@ -101,25 +103,6 @@ const App = () => {
     setNewTestament(newTestamentCookie ? JSON.parse(newTestamentCookie) : newTestamentDefault)
     setBookmark(bookmarkCookie ? JSON.parse(bookmarkCookie) : bookmarkDefault)
   }
-  
-  const handleClick1 = (book, i) => {
-    const aux = oldTestament
-
-    aux.map((b => {
-      if(b.name === book.name) {
-        let index = book.completed.indexOf(i);
-        if (index > -1) {
-          b.completed.splice(index, 1);
-        } else {
-          b.completed.push(i)
-        }
-      }
-      return 0
-    }))
-    
-    setOldTestament(aux)
-    setFlag(!flag)
-  }
 
   const clearBible = () => {
     setOldTestament(oldTestamentDefault)
@@ -127,33 +110,75 @@ const App = () => {
     setBookmark(bookmarkDefault)
   }
 
-  const handleClick2 = (book, i) => {
-    const aux = newTestament
-
-    aux.map((b => {
-      if(b.name === book.name) {
-        let index = book.completed.indexOf(i);
-        if (index > -1) {
-          b.completed.splice(index, 1);
-        } else {
-          b.completed.push(i)
-        }
-      }
-      return 0
-    }))
-    
-    setNewTestament(aux)
-    setFlag(!flag)
-  }
-
-  const handleRightClick = (event, book, chapter) => {
-    event.preventDefault()
+  const handleRightClick = (book, chapter) => {
     if(bookmark.book === book.name && bookmark.chapter === chapter)
       setBookmark({book: '', chapter: 0})
     else
       setBookmark({book: book.name, chapter: chapter})
     setFlag(!flag)
   }
+
+  const handleClick1 = (book, i) => {
+    if (doubleClickTimer) {
+      // Double-click
+      clearTimeout(doubleClickTimer);
+      setDoubleClickTimer(null);
+      // console.log('Double click');
+      handleRightClick(book, i)
+    } else {
+      // Single click
+      setDoubleClickTimer(setTimeout(() => {
+        setDoubleClickTimer(null);
+        // console.log('Click');
+        const aux = oldTestament
+        aux.map((b => {
+          if(b.name === book.name) {
+            let index = book.completed.indexOf(i);
+            if (index > -1) {
+              b.completed.splice(index, 1);
+            } else {
+              b.completed.push(i)
+            }
+          }
+          return 0
+        }))
+        
+        setOldTestament(aux)
+        setFlag(!flag)
+      }, 250));
+    }
+  };
+
+  const handleClick2 = (book, i) => {
+    if (doubleClickTimer) {
+      // Double-click
+      clearTimeout(doubleClickTimer);
+      setDoubleClickTimer(null);
+      // console.log('Double click');
+      handleRightClick(book, i)
+    } else {
+      // Single click
+      setDoubleClickTimer(setTimeout(() => {
+        setDoubleClickTimer(null);
+        // console.log('Click');
+        const aux = newTestament
+        aux.map((b => {
+          if(b.name === book.name) {
+            let index = book.completed.indexOf(i);
+            if (index > -1) {
+              b.completed.splice(index, 1);
+            } else {
+              b.completed.push(i)
+            }
+          }
+          return 0
+        }))
+        
+        setNewTestament(aux)
+        setFlag(!flag)
+      }, 250));
+    }
+  };
 
   const scrollToDiv = () => {
     myDiv.current.scrollIntoView({ behavior: 'smooth' });
@@ -170,7 +195,6 @@ const App = () => {
             style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null, cursor: 'pointer'}}
             key={i}
             onClick={() => handleClick1(book, i)}
-            onContextMenu={(event) => handleRightClick(event, book, i)}
           >
             {i}
           </button>
@@ -198,7 +222,6 @@ const App = () => {
             style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null, cursor: 'pointer'}}
             key={i}
             onClick={() => handleClick2(book, i)}
-            onContextMenu={(event) => handleRightClick(event, book, i)}
           >
             {i}
           </button>
