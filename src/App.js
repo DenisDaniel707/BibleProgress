@@ -274,17 +274,17 @@ const App = () => {
   return (
     <div onContextMenu={(e) => e.preventDefault()}>
       <div style={{position: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-        <div style={{marginTop: '15px', margin: '15px 25px', fontWeight: '600', fontSize: 20}}>
+        <div style={{backgroundColor: 'rgb(216, 216, 216, 0.6)', padding: '0 10px 10px 10px', borderRadius: '8px', marginTop: '15px', margin: '15px 25px', fontWeight: '600', fontSize: 20}}>
           <span style={{fontSize: 10}}>Jump to:</span>
           <div style={{marginTop: '5px', fontSize: 11, backgroundColor: 'lightblue', padding: '2px 5px', borderRadius: '5px', cursor: 'pointer'}} onClick={scrollToOldT}>Old testament</div>
           <div style={{marginTop: '2px', fontSize: 11, backgroundColor: 'lightblue', padding: '2px 5px', borderRadius: '5px', cursor: 'pointer'}} onClick={scrollToNewT}>New testament</div>
         </div>
         <div style={{marginRight: '5px'}}>
-          <div style={{marginTop: '10px', marginRight: '20px', fontWeight: '600', fontSize: 16, backgroundColor: 'white', padding: '3px 8px', borderRadius: '8px'}}>Progress: {progress}%</div>
-          {bookmark.book && <div style={{backgroundColor: 'white', marginTop: '3px', fontWeight: '600', fontSize: 16, padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span>{bookmark.book} {bookmark.chapter}</span></div>}
+          <div style={{marginTop: '10px', marginRight: '20px', fontWeight: '600', fontSize: 16, backgroundColor: 'white', padding: '3px 8px', backgroundColor: parseInt(progress) === 100 ? 'rgb(50, 255, 50, 0.55)' : 'rgb(255, 255, 50, 0.55)', borderRadius: '8px'}}>Progress: {progress}%</div>
+          {bookmark.book && <div style={{backgroundColor: 'white', marginTop: '3px', fontWeight: '600', fontSize: 16, padding: '3px 8px', backgroundColor: 'rgb(255, 50, 50, 0.55)', borderRadius: '8px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span>{bookmark.book} {bookmark.chapter}</span></div>}
         </div>
       </div>
-      <div style={{paddingTop: '75px'}}>
+      <div style={{paddingTop: '90px'}}>
         <h1 style={{display: 'flex', justifyContent: 'center'}} ref={oldT}>Old Testament:</h1>
         <div className="books">
           {oldTestamentBooks}
