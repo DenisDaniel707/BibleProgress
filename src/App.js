@@ -97,9 +97,9 @@ const App = () => {
     const newTestamentCookie = Cookies.get('br_app_newTestament');
     const bookmarkCookie = Cookies.get('br_app_bookmark');
     // console.log(oldTestamentCookie, newTestamentCookie, bookmarkCookie);
-    setOldTestament(JSON.parse(oldTestamentCookie))
-    setNewTestament(JSON.parse(newTestamentCookie))
-    setBookmark(JSON.parse(bookmarkCookie))
+    setOldTestament(oldTestamentCookie ? JSON.parse(oldTestamentCookie) : null)
+    setNewTestament(newTestamentCookie ? JSON.parse(newTestamentCookie) : null)
+    setBookmark(bookmarkCookie ? JSON.parse(bookmarkCookie) : null)
   }
   
   const handleClick1 = (book, i) => {
