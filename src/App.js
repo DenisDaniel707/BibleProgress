@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './App.css'
 import Cookies from 'js-cookie'
 
-const oldTestamentDefault = [
+const oldTestamentDefault = JSON.stringify([
   {name: 'Genesis', chapters: 50, completed: []},
   {name: 'Exodus', chapters: 40, completed: []},
   {name: 'Leviticus', chapters: 27, completed: []},
@@ -42,9 +42,9 @@ const oldTestamentDefault = [
   {name: 'Haggai', chapters: 2, completed: []},
   {name: 'Zechariah', chapters: 14, completed: []},
   {name: 'Malachi', chapters: 4, completed: []}
-];
+])
 
-const newTestamentDefault = [
+const newTestamentDefault = JSON.stringify([
   {name: 'Matthew', chapters: 28, completed: []},
   {name: 'Mark', chapters: 16, completed: []},
   {name: 'Luke', chapters: 24, completed: []},
@@ -72,15 +72,15 @@ const newTestamentDefault = [
   {name: '3 John', chapters: 1, completed: []},
   {name: 'Jude', chapters: 1, completed: []},
   {name: 'Revelation', chapters: 22, completed: []}
-];
+])
 
 const bookmarkDefault = {book: '', chapter: 0}
 
 const App = () => {
 
 
-  const [oldTestament, setOldTestament] = useState(oldTestamentDefault)
-  const [newTestament, setNewTestament] = useState(newTestamentDefault)
+  const [oldTestament, setOldTestament] = useState(JSON.parse(oldTestamentDefault))
+  const [newTestament, setNewTestament] = useState(JSON.parse(newTestamentDefault))
   const [bookmark, setBookmark] = useState(bookmarkDefault)
   const [progress, setProgress] = useState(0)
   const [flag, setFlag] = useState(false)
@@ -105,9 +105,10 @@ const App = () => {
   }
 
   const clearBible = () => {
-    setOldTestament(oldTestamentDefault)
-    setNewTestament(newTestamentDefault)
+    setOldTestament(JSON.parse(oldTestamentDefault))
+    setNewTestament(JSON.parse(newTestamentDefault))
     setBookmark(bookmarkDefault)
+    console.log('tick')
   }
 
   const handleRightClick = (book, chapter) => {
@@ -130,7 +131,7 @@ const App = () => {
       setDoubleClickTimer(setTimeout(() => {
         setDoubleClickTimer(null);
         // console.log('Click');
-        const aux = oldTestament
+        const aux = [...oldTestament]
         aux.map((b => {
           if(b.name === book.name) {
             let index = book.completed.indexOf(i);
@@ -161,7 +162,7 @@ const App = () => {
       setDoubleClickTimer(setTimeout(() => {
         setDoubleClickTimer(null);
         // console.log('Click');
-        const aux = newTestament
+        const aux = [...newTestament]
         aux.map((b => {
           if(b.name === book.name) {
             let index = book.completed.indexOf(i);
