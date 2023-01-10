@@ -281,7 +281,7 @@ const App = () => {
         </div>
         <div style={{marginRight: '5px'}}>
           <div style={{marginTop: '10px', marginRight: '20px', fontWeight: '600', fontSize: 16, backgroundColor: 'white', padding: '3px 8px', borderRadius: '8px'}}>Progress: {progress}%</div>
-          {bookmark.book && <div style={{backgroundColor: 'white', marginTop: '3px', fontWeight: '600', fontSize: 16, padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span style={{marginLeft: '10px'}}>{bookmark.book} {bookmark.chapter}</span></div>}
+          {bookmark.book && <div style={{backgroundColor: 'white', marginTop: '3px', fontWeight: '600', fontSize: 16, padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span>{bookmark.book} {bookmark.chapter}</span></div>}
         </div>
       </div>
       <div style={{paddingTop: '75px'}}>
