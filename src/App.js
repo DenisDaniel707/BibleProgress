@@ -108,7 +108,6 @@ const App = () => {
     setOldTestament(JSON.parse(oldTestamentDefault))
     setNewTestament(JSON.parse(newTestamentDefault))
     setBookmark(bookmarkDefault)
-    console.log('tick')
   }
 
   const handleRightClick = (book, chapter) => {
