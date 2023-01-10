@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url('./media/papyrus.jpg');
+  cursor: default;
+  user-select: none;
 }
 
 code {

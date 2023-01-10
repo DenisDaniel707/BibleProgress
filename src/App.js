@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css'
 import Cookies from 'js-cookie'
 
@@ -74,15 +74,17 @@ const newTestamentDefault = [
   {name: 'Revelation', chapters: 22, completed: []}
 ];
 
+const bookmarkDefault = {book: '', chapter: 0}
+
 const App = () => {
 
-  const bookmarkDefault = {book: '', chapter: 0}
 
   const [oldTestament, setOldTestament] = useState(oldTestamentDefault)
   const [newTestament, setNewTestament] = useState(newTestamentDefault)
   const [bookmark, setBookmark] = useState(bookmarkDefault)
   const [progress, setProgress] = useState(0)
   const [flag, setFlag] = useState(false)
+  const myDiv = useRef(null);
 
   const setCookies = () => {
     Cookies.set('br_app_oldTestament', JSON.stringify(oldTestament));
@@ -144,14 +146,18 @@ const App = () => {
     setFlag(!flag)
   }
 
-const handleRightClick = (event, book, chapter) => {
-  event.preventDefault()
-  if(bookmark.book === book.name && bookmark.chapter === chapter)
-    setBookmark({book: '', chapter: 0})
-  else
-    setBookmark({book: book.name, chapter: chapter})
-  setFlag(!flag)
-}
+  const handleRightClick = (event, book, chapter) => {
+    event.preventDefault()
+    if(bookmark.book === book.name && bookmark.chapter === chapter)
+      setBookmark({book: '', chapter: 0})
+    else
+      setBookmark({book: book.name, chapter: chapter})
+    setFlag(!flag)
+  }
+
+  const scrollToDiv = () => {
+    myDiv.current.scrollIntoView({ behavior: 'smooth' });
+  }
 
   const oldTestamentBooks = oldTestament.map(book => {
     const buttons = [];
@@ -161,7 +167,7 @@ const handleRightClick = (event, book, chapter) => {
       const buttonColor = book.completed.includes(i) ? 'lightgreen' : null;
         buttons.push(
           <button
-            style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null}}
+            style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null, cursor: 'pointer'}}
             key={i}
             onClick={() => handleClick1(book, i)}
             onContextMenu={(event) => handleRightClick(event, book, i)}
@@ -172,7 +178,7 @@ const handleRightClick = (event, book, chapter) => {
     }
   
     return (
-      <div key={book.name} className="book-card">
+      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} className="book-card">
         <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({Math.round(book.completed.length * 100 / book.chapters)}%)</span></h2>
         <div className="book-card-content">
           {buttons}
@@ -189,7 +195,7 @@ const handleRightClick = (event, book, chapter) => {
       const buttonColor = book.completed.includes(i) ? 'lightgreen' : null;
         buttons.push(
           <button
-            style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null}}
+            style={{backgroundColor: buttonColor, color: isBookmark ? 'red' : null, borderColor: isBookmark ? 'red' : null, border: isBookmark ? '3px solid red' : null, cursor: 'pointer'}}
             key={i}
             onClick={() => handleClick2(book, i)}
             onContextMenu={(event) => handleRightClick(event, book, i)}
@@ -200,7 +206,7 @@ const handleRightClick = (event, book, chapter) => {
     }
   
     return (
-      <div key={book.name} className="book-card">
+      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} className="book-card">
         <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({Math.round(book.completed.length * 100 / book.chapters)}%)</span></h2>
         {buttons}
       </div>
@@ -235,7 +241,7 @@ const handleRightClick = (event, book, chapter) => {
   return (
     <div onContextMenu={(e) => e.preventDefault()}>
       <div style={{position: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-        <div style={{margin: '15px', fontWeight: '600', fontSize: 20}}>{bookmark.book && <span style={{backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px'}}>Bookmark: <span style={{marginLeft: '10px'}}>{bookmark.book} {bookmark.chapter}</span></span>}</div>
+        <div style={{margin: '15px', fontWeight: '600', fontSize: 20}}>{bookmark.book && <span style={{backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span style={{marginLeft: '10px'}}>{bookmark.book} {bookmark.chapter}</span></span>}</div>
         <div style={{margin: '15px', marginRight: '30px', fontWeight: '600', fontSize: 20, backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px'}}>Progress: {progress}%</div>
       </div>
       <div>
@@ -251,8 +257,8 @@ const handleRightClick = (event, book, chapter) => {
         </div>
       </div>
       <div style={{width: '95%', display: 'flex', justifyContent: 'center', margin: '20px', marginTop: '50px'}}>
-        <button style={{color: 'green', margin: '0 35px'}} onClick={setCookies}>Save progress</button>
-        <button style={{color: 'red'}} onDoubleClick={clearBible}>Delete progress</button>
+        <button style={{cursor: 'pointer', color: 'green', margin: '0 35px'}} onClick={setCookies}>Save progress</button>
+        <button style={{cursor: 'pointer', color: 'red'}} onDoubleClick={clearBible}>Delete progress</button>
       </div>
     </div>
   );
