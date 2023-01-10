@@ -281,7 +281,7 @@ const App = () => {
       </div>
       <div style={{width: '95%', display: 'flex', justifyContent: 'center', margin: '20px', marginTop: '50px'}}>
         <button style={{cursor: 'pointer', color: 'green', margin: '0 35px'}} onClick={setCookies}>Save progress</button>
-        <button style={{cursor: 'pointer', color: 'red'}} onDoubleClick={clearBible}>Delete progress</button>
+        <button style={{cursor: 'pointer', color: 'red'}} onClick={clearBible}>Delete progress</button>
       </div>
     </div>
   );
