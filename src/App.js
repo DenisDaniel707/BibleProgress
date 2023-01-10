@@ -245,13 +245,13 @@ const App = () => {
         <div style={{margin: '15px', marginRight: '30px', fontWeight: '600', fontSize: 20, backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px'}}>Progress: {progress}%</div>
       </div>
       <div>
-        <h1 style={{display: 'flex', justifyContent: 'center'}}>Old Testament</h1>
+        <h1 style={{display: 'flex', justifyContent: 'center'}}>Old Testament:</h1>
         <div className="books">
           {oldTestamentBooks}
         </div>
       </div>
       <div>
-        <h1 style={{display: 'flex', justifyContent: 'center', marginTop: '75px'}}>New Testament</h1>
+        <h1 style={{display: 'flex', justifyContent: 'center', marginTop: '75px'}}>New Testament:</h1>
         <div className="books">
           {newTestamentBooks}
         </div>
