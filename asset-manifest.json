@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.fc999f95.css",
-    "main.js": "/static/js/main.181c30f4.js",
-    "static/media/papyrus.jpg": "/static/media/papyrus.47f7a24834273b233e39.jpg",
-    "index.html": "/index.html",
-    "main.fc999f95.css.map": "/static/css/main.fc999f95.css.map",
-    "main.181c30f4.js.map": "/static/js/main.181c30f4.js.map"
+    "main.css": "/BibleProgress/static/css/main.86834615.css",
+    "main.js": "/BibleProgress/static/js/main.181c30f4.js",
+    "static/media/papyrus.jpg": "/BibleProgress/static/media/papyrus.47f7a24834273b233e39.jpg",
+    "index.html": "/BibleProgress/index.html",
+    "main.86834615.css.map": "/BibleProgress/static/css/main.86834615.css.map",
+    "main.181c30f4.js.map": "/BibleProgress/static/js/main.181c30f4.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc999f95.css",
+    "static/css/main.86834615.css",
     "static/js/main.181c30f4.js"
   ]
 }
