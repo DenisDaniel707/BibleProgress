@@ -87,6 +87,8 @@ const App = () => {
   
   const [doubleClickTimer, setDoubleClickTimer] = useState(null);
   const myDiv = useRef(null);
+  const oldT = useRef(null);
+  const newT = useRef(null);
 
   const setCookies = () => {
     Cookies.set('br_app_oldTestament', JSON.stringify(oldTestament));
@@ -184,6 +186,14 @@ const App = () => {
     myDiv.current.scrollIntoView({ behavior: 'smooth' });
   }
 
+  const scrollToOldT = () => {
+    oldT.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  const scrollToNewT = () => {
+    newT.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
   const oldTestamentBooks = oldTestament.map(book => {
     const buttons = [];
   
@@ -264,17 +274,24 @@ const App = () => {
   return (
     <div onContextMenu={(e) => e.preventDefault()}>
       <div style={{position: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-        <div style={{margin: '15px', fontWeight: '600', fontSize: 20}}>{bookmark.book && <span style={{backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span style={{marginLeft: '10px'}}>{bookmark.book} {bookmark.chapter}</span></span>}</div>
-        <div style={{margin: '15px', marginRight: '30px', fontWeight: '600', fontSize: 20, backgroundColor: 'white', padding: '4px 10px', borderRadius: '10px'}}>Progress: {progress}%</div>
+        <div style={{marginTop: '15px', margin: '15px 25px', fontWeight: '600', fontSize: 20}}>
+          <span style={{fontSize: 10}}>Jump to:</span>
+          <div style={{marginTop: '5px', fontSize: 11, backgroundColor: 'lightblue', padding: '2px 5px', borderRadius: '5px', cursor: 'pointer'}} onClick={scrollToOldT}>Old testament</div>
+          <div style={{marginTop: '2px', fontSize: 11, backgroundColor: 'lightblue', padding: '2px 5px', borderRadius: '5px', cursor: 'pointer'}} onClick={scrollToNewT}>New testament</div>
+        </div>
+        <div style={{marginRight: '5px'}}>
+          <div style={{marginTop: '10px', marginRight: '20px', fontWeight: '600', fontSize: 16, backgroundColor: 'white', padding: '3px 8px', borderRadius: '8px'}}>Progress: {progress}%</div>
+          {bookmark.book && <div style={{backgroundColor: 'white', marginTop: '3px', padding: '4px 10px', borderRadius: '10px', cursor: 'pointer'}} onClick={scrollToDiv}>Bookmark: <span style={{marginLeft: '10px'}}>{bookmark.book} {bookmark.chapter}</span></div>}
+        </div>
       </div>
-      <div>
-        <h1 style={{display: 'flex', justifyContent: 'center'}}>Old Testament:</h1>
+      <div style={{paddingTop: '75px'}}>
+        <h1 style={{display: 'flex', justifyContent: 'center'}} ref={oldT}>Old Testament:</h1>
         <div className="books">
           {oldTestamentBooks}
         </div>
       </div>
       <div>
-        <h1 style={{display: 'flex', justifyContent: 'center', marginTop: '75px'}}>New Testament:</h1>
+        <h1 style={{display: 'flex', justifyContent: 'center', marginTop: '75px'}} ref={newT}>New Testament:</h1>
         <div className="books">
           {newTestamentBooks}
         </div>
