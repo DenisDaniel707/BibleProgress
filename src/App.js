@@ -178,8 +178,8 @@ const App = () => {
     }
   
     return (
-      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} className="book-card">
-        <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({Math.round(book.completed.length * 100 / book.chapters)}%)</span></h2>
+      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} style={{backgroundColor: book.completed.length === book.chapters && 'lightgreen'}} className="book-card">
+        <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({book.completed.length}/{book.chapters})</span></h2>
         <div className="book-card-content">
           {buttons}
         </div>
@@ -206,8 +206,8 @@ const App = () => {
     }
   
     return (
-      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} className="book-card">
-        <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({Math.round(book.completed.length * 100 / book.chapters)}%)</span></h2>
+      <div key={book.name} ref={bookmark.book === book.name ? myDiv : null} style={{backgroundColor: book.completed.length === book.chapters && 'lightgreen'}} className="book-card">
+        <h2 style={{fontSize: 24}}>{book.name} <span style={{fontSize: 15}}>({book.completed.length}/{book.chapters})</span></h2>
         {buttons}
       </div>
     );
